@@ -25,6 +25,7 @@ int main(){
     Word_Modifier *word_ptr = new Word_Modifier();
     cout << word_ptr->wordSeparator() << endl;
     word_ptr->wordUpper();
+    word_ptr->wordLower();
     
     
     return 0;
@@ -33,10 +34,13 @@ int main(){
 Word_Modifier::Word_Modifier(){
     string userInput{"Unset"};
     
-    cout << "Enter word/string: ";
-    getline(cin, userInput);
-    cin.clear();
-    cout << endl;
+    do{
+    cout << "Enter a word/phrase (up to 99 characters): ";
+        getline(cin, userInput);
+        cin.clear();
+        cout << endl;
+    }while(userInput.length() >= 99);
+    
     this->word = userInput;
     
     this->x = userInput.length();
@@ -78,6 +82,24 @@ void Word_Modifier::wordUpper(){
     cout << endl << "Converted to uppercase: ";
     for(int i = 0; i < x; ++i){
         cout << wordUpper[i];
+    }
+    cout << endl << endl;
+}
+
+void Word_Modifier::wordLower(){
+    char wordLower[100];
+    
+    for(int i = 0; i < x; ++i){
+        if(word_as_char[i] >= 65 && word_as_char[i] <= 90){
+            wordLower[i] = word_as_char[i] + 32;
+        }
+        else{
+            wordLower[i] = word_as_char[i];
+        }
+    }
+    cout << endl << "Converted to lowercase: ";
+    for(int i = 0; i < x; ++i){
+        cout << wordLower[i];
     }
     cout << endl << endl;
 }
