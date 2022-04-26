@@ -1,3 +1,10 @@
+// Author: Matthew Peach
+// Program Status: Complete
+// Description:
+//   User input is assigned to a string, then becomes an attribute of a Word_Modifier object.
+// The Word_Modifier class has methods that manipulate the string. For wordUpper(), wordLower(),
+// and wordFlip() a char (C-string) version of user input is used.
+
 #include <iostream>
 #include <string>
 
@@ -20,22 +27,20 @@ public:
     void wordFlip();
 };
 
-
-
 int main(){
     bool goAgain {true};
     string userChoice {"Unset"};
     
     do{
         Word_Modifier *word_ptr = new Word_Modifier(); //Constructor
-        cout << word_ptr->wordSeparator() << endl; // word separator
+        cout << "Separated by uppercase: " << word_ptr->wordSeparator() << endl; // word separator
         word_ptr->wordUpper(); //uppercase
         word_ptr->wordLower(); //lowercase
         word_ptr->wordFlip(); //swapcase
         delete word_ptr; //free memory
         
         do{
-            cout << "Would you like to enter another word? (y/n): ";
+            cout << "\nWould you like to enter another word? (y/n): ";
             getline(cin, userChoice);
             cin.clear();
         }while(userChoice != "Y" && userChoice != "y" && userChoice != "N" && userChoice != "n");
@@ -45,7 +50,7 @@ int main(){
         else if(userChoice == "Y" || userChoice == "y"){
             goAgain = true;
         }
-        cout << endl << "===============================================================" << endl;
+        cout << endl << "====================================================================================" << endl;
     }while(goAgain);
     
     return 0;
