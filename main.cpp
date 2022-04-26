@@ -17,16 +17,36 @@ public:
     string wordSeparator();
     void wordUpper();
     void wordLower();
+    void wordFlip();
 };
 
 
 
 int main(){
-    Word_Modifier *word_ptr = new Word_Modifier();
-    cout << word_ptr->wordSeparator() << endl;
-    word_ptr->wordUpper();
-    word_ptr->wordLower();
+    bool goAgain {true};
+    string userChoice {"Unset"};
     
+    do{
+        Word_Modifier *word_ptr = new Word_Modifier(); //Constructor
+        cout << word_ptr->wordSeparator() << endl; // word separator
+        word_ptr->wordUpper(); //uppercase
+        word_ptr->wordLower(); //lowercase
+        word_ptr->wordFlip(); //swapcase
+        delete word_ptr; //free memory
+        
+        do{
+            cout << "Would you like to enter another word? (y/n): ";
+            getline(cin, userChoice);
+            cin.clear();
+        }while(userChoice != "Y" && userChoice != "y" && userChoice != "N" && userChoice != "n");
+        if(userChoice == "N" || userChoice == "n"){
+            goAgain = false;
+        }
+        else if(userChoice == "Y" || userChoice == "y"){
+            goAgain = true;
+        }
+        cout << endl << "===============================================================" << endl;
+    }while(goAgain);
     
     return 0;
 }
@@ -83,7 +103,7 @@ void Word_Modifier::wordUpper(){
     for(int i = 0; i < x; ++i){
         cout << wordUpper[i];
     }
-    cout << endl << endl;
+    cout << endl;
 }
 
 void Word_Modifier::wordLower(){
@@ -101,5 +121,26 @@ void Word_Modifier::wordLower(){
     for(int i = 0; i < x; ++i){
         cout << wordLower[i];
     }
-    cout << endl << endl;
+    cout << endl;
+}
+
+void Word_Modifier::wordFlip(){
+    char wordFlip[100];
+    
+    for (int i = 0; i < x; ++i){
+        if(word_as_char[i] >= 97 && word_as_char[i] <= 122){ // If character is lowercase, flip to uppercase
+            wordFlip[i] = word_as_char[i] - 32;
+        }
+        else if(word_as_char[i] >= 65 && word_as_char[i] <= 90){ // Else if character is uppercase, flip to lowercase
+            wordFlip[i] = word_as_char[i] + 32;
+        }
+        else{
+            wordFlip[i] = word_as_char[i]; // Else leave the character as-is if not in the ASCII alphabet ranges
+        }
+    }
+    cout << endl << "Case-flipped: ";
+    for(int i = 0; i < x; ++i){
+        cout << wordFlip[i];
+    }
+    cout << endl;
 }
